@@ -4,27 +4,22 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Computador;
+use App\Models\Estados;
 
 class ComputadorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         $computadores = Computador::all();
-        return view('computador.index')->with('computadores', $computadores);
+        $estados = Estados::all();
+        return view('computadores', compact('computadores', 'estados'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
+<<<<<<< HEAD
+=======
         return view('computador.create');
     }
 
@@ -71,31 +66,39 @@ class ComputadorController extends Controller
      */
     public function show($id)
     {
+>>>>>>> e8a5d81b4f501b6c70e704c02d09eeb183c19db9
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+
+    public function store(Request $request)
     {
-        $computador = Computador::find($id);
-        return view('computador/edit')->with('computador', $computador);
+        $computador = new Computador($request ->input());
+        $computador->saveOrFail();
+        return redirect('computadores');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
+    public function show($id)
+    {
+        $computador = Computador::find($id);
+        return view('editComputador', compact('computador', 'estados'));
+    }
+
+
+    public function edit($id)
+    {
+        //
+    }
+
+
     public function update(Request $request, $id)
     {
         $computador = Computador::find($id);
+<<<<<<< HEAD
+        $computador->fill($request->input())->saveOrFail();
+        return redirect('computadores');
+=======
 
         $computador->ID_portatilesp = $request->get('ID_portatilesp');
         $computador->Tag = $request->get('Tag');
@@ -108,18 +111,18 @@ class ComputadorController extends Controller
         $computador->save();
 
         return redirect('/computador');
+>>>>>>> e8a5d81b4f501b6c70e704c02d09eeb183c19db9
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
         $computador = Computador::find($id);
         $computador->delete();
+<<<<<<< HEAD
+        return redirect('computadores');
+=======
         return redirect('/computador');
+>>>>>>> e8a5d81b4f501b6c70e704c02d09eeb183c19db9
     }
 }
